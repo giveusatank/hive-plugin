@@ -1,14 +1,13 @@
 package cn.com.pep.plugins.udf;
 
-import cn.com.pep.plugins.common.CompanyJsonSingleton;
-import cn.com.pep.plugins.common.Constants;
-import cn.com.pep.plugins.common.ConvertJsonSingleton;
-import cn.com.pep.plugins.common.OrderJsonSingeton;
+import cn.com.pep.plugins.common.*;
 import org.apache.hadoop.hive.ql.exec.UDF;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,7 +23,7 @@ import java.util.regex.Pattern;
  */
 public class YunwangDateFormat extends UDF {
 
-    public static String evaluate(String dataType, String key) throws IOException, IOException {
+    public static String evaluate(String dataType, String key) throws IOException {
         if ("tbid".equals(dataType)) {
             Map<String, String> tbIdMap = ConvertJsonSingleton.getInstance(Constants.diandu_book_id_mapping).getConverterMap();
             if (key == null) {
@@ -92,6 +91,61 @@ public class YunwangDateFormat extends UDF {
                 return "";
 
             }
+        } else if("zyk_ysj".equals(dataType)){
+            ZykConstantSingleton instance = ZykConstantSingleton.getInstance();
+            HashMap<String, String> hashMap = (HashMap<String, String>) instance.getZykConstantMap();
+            if(hashMap.containsKey(key)) {
+                return hashMap.get(key);
+            }else {
+                return "";
+
+            }
+        } else if("product".equals(dataType)){
+            ProductMappingConstantSingleton instance = ProductMappingConstantSingleton.getInstance();
+            HashMap<String, String> hashMap = (HashMap<String, String>) instance.getProductConstantMap();
+            if(hashMap.containsKey(key)) {
+                return key;
+            }else {
+                return "";
+
+            }
+        } else if("product2name".equals(dataType)) {
+            ProductMappingConstantSingleton instance = ProductMappingConstantSingleton.getInstance();
+            HashMap<String, String> hashMap = (HashMap<String, String>) instance.getProductConstantMap();
+            if (hashMap.containsKey(key)) {
+                return hashMap.get(key);
+            }
+            else {
+                return "";
+            }
+        } else if("brand".equals(dataType)){
+            if(key!=null && key!=""){
+                BrandListJsonSingleton instance = BrandListJsonSingleton.getInstance();
+                Map<String, List<String>> brandMap = instance.getBrandMap();
+                Set<Map.Entry<String, List<String>>> entries = brandMap.entrySet();
+                String returnBrand = null;
+                outter:for(Map.Entry<String, List<String>> entry:entries){
+                    String brandName = entry.getKey();
+                    List<String> lists = entry.getValue();
+                    //遍历list，比较传入key是否包含list元素
+                    inner:for(String item:lists){
+                        String upperKey = key.toUpperCase();
+                        String upperItem = item.toUpperCase();
+                        if(upperKey.contains(upperItem)){
+                            returnBrand = brandName;
+                            break outter;
+                        }
+                    }
+                }
+
+                if(returnBrand==null){
+                    returnBrand="其他";
+                }
+                return returnBrand;
+            }else {
+                return "";
+            }
+
         }
         return key;
     }
@@ -101,6 +155,7 @@ public class YunwangDateFormat extends UDF {
     //        System.out.println(evaluate("tbid", "教材打开,tape3b_002003"));
     //    }
     public static void main(String[] args) throws IOException {
-        System.out.println(evaluate("order", "49"));
+        System.out.println(evaluate("brand", "iphone"));
+
     }
 }

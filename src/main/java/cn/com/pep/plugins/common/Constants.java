@@ -14,6 +14,9 @@ public class Constants {
     public static final String diandu_book_id_mapping = "diandu_book_id_mapping.json";
     public static final String company_product_mapping = "company_product_mapping.json";
     public static final String diandu_chapter_id_mapping = "diandu_chapter_id_mapping.json";
+    public static final String zyk_constant_path = "zyk_constant.json";
+    public static final String product_name_mapping = "product_id_mapping.json";
+    public static final String brand_list_mapping = "brand_list_mapping.json";
     public static final String geoIPFile = "GeoLite2-City.mmdb";
     public static final String geollFile = "geo.csv";
     public static final Map<String, String> provinceCN = new HashMap<String, String>();
