@@ -17,6 +17,8 @@ public class Constants {
     public static final String zyk_constant_path = "zyk_constant.json";
     public static final String product_name_mapping = "product_id_mapping.json";
     public static final String brand_list_mapping = "brand_list_mapping.json";
+    public static final String android_net_list = "android_net_list.json";
+    public static final String windows_os_list = "os_list_mapping.json";
     public static final String geoIPFile = "GeoLite2-City.mmdb";
     public static final String geollFile = "geo.csv";
     public static final Map<String, String> provinceCN = new HashMap<String, String>();

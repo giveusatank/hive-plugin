@@ -4,10 +4,7 @@ import cn.com.pep.plugins.common.*;
 import org.apache.hadoop.hive.ql.exec.UDF;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,7 +18,7 @@ import java.util.regex.Pattern;
  * @author zhangfz
  * @create 2019-05-07 9:44
  */
-public class YunwangDateFormat extends UDF {
+public class YunwangDateFormat extends UDF{
 
     public static String evaluate(String dataType, String key) throws IOException {
         if ("tbid".equals(dataType)) {
@@ -137,7 +134,6 @@ public class YunwangDateFormat extends UDF {
                         }
                     }
                 }
-
                 if(returnBrand==null){
                     returnBrand="其他";
                 }
@@ -145,7 +141,34 @@ public class YunwangDateFormat extends UDF {
             }else {
                 return "";
             }
-
+        }else if("connect".equals(dataType)){
+            String res = null;
+            if(!"".equals(key) && key != null){
+                AndroidListJsonSingleton instance = AndroidListJsonSingleton.getInstance();
+                LinkedHashMap<String,List<String>> map = instance.getMap();
+                outter:for(Map.Entry<String, List<String>> item : map.entrySet()){
+                    String key_ = item.getKey();
+                    inner:for(String value:item.getValue()){
+                        if(key.equals(String.valueOf(value))){
+                            //找到跳出外层循环
+                            res = key_;
+                            break outter;
+                        }
+                    }
+                }
+            }else {
+                return "";
+            }
+            return res;
+        }else if("os".equals(dataType)){
+            LinkedHashMap<String, String> osMap = OsListJsonSingleton.getInstance().getOsMap();
+            if(!"".equals(key) && key!=null){
+                for(Map.Entry<String, String> entry:osMap.entrySet()){
+                    if(key.contains(entry.getKey())){
+                        return entry.getValue();
+                    }
+                }
+            }
         }
         return key;
     }
@@ -155,7 +178,10 @@ public class YunwangDateFormat extends UDF {
     //        System.out.println(evaluate("tbid", "教材打开,tape3b_002003"));
     //    }
     public static void main(String[] args) throws IOException {
-        System.out.println(evaluate("brand", "iphone"));
-
+        //System.out.println(evaluate("brand", "iphone"));
+        //System.out.println(evaluate("connect","15"));
+        //System.out.println("~~~~~~~~~~~~~~~~~~~``");
+        OsListJsonSingleton instance = OsListJsonSingleton.getInstance();
+        System.out.println(evaluate("os", "Windows NTwww"));
     }
 }

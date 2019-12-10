@@ -35,7 +35,7 @@ public class GroupNameUDF extends UDF{
                         result = "0-30秒";
                     }
                     else if (timeDouble <= 60) {
-                        result = "0秒-1分钟";
+                        result = "30秒-1分钟";
                     }
                     else if (timeDouble <= 300) {
                         result = "1分钟-5分钟";
