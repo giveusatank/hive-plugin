@@ -1,0 +1,70 @@
+{
+  "苹果": [
+    "iPad",
+    "iPhone"
+  ],
+  "VIVO": [
+    "vivo"
+  ],
+  "华为": [
+    "HUAWEI",
+    "HONOR"
+  ],
+  "OPPO": [
+    "OPPO"
+  ],
+  "魅族": [
+    "Meizu"
+  ],
+  "三星": [
+    "samsung"
+  ],
+  "小米": [
+    "Xiaomi",
+    "Redmi",
+    "blackshark"
+  ],
+  "乐视": [
+    "LeEco",
+    "Letv"
+  ],
+  "联想": [
+    "Lenovo"
+  ],
+  "金立": [
+    "GIONEE"
+  ],
+  "奇虎360": [
+    "360"
+  ],
+  "锤子": [
+    "SMARTISAN"
+  ],
+  "步步高": [
+    "EEBBK"
+  ],
+  "诺基亚": [
+    "Nokia"
+  ],
+  "索尼": [
+    "Sony"
+  ],
+  "摩托罗拉": [
+    "motorola"
+  ],
+  "海信": [
+    "Hisense"
+  ],
+  "努比亚": [
+    "nubia"
+  ],
+  "酷比": [
+    "koobee"
+  ],
+  "中兴": [
+    "ZTE"
+  ],
+  "SUGAR": [
+    "SUGAR"
+  ]
+}
